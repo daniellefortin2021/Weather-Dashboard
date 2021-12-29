@@ -19,8 +19,7 @@ header{
     padding: 5px;
 }
 
-.search-btn{
-    background-color: var(--secondary-color);
+.btn{
     color: white;
     font-weight: bold;
     border-radius: 5px;
@@ -39,4 +38,26 @@ header{
 
 .search-list{
     background-color: var(--secondary-color);
+}
+
+.current{
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px;
+}
+
+.hide{
+    display: none;
+}
+
+#five-day{
+    margin: 10px;
+}
+
+.forecast{
+    margin: 10px;
+    border-radius: 15px;
 }

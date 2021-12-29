@@ -2,8 +2,8 @@ var apiKey = "acc613979eb69edb844178b8c2240961";
 var searchButton = document.querySelector("#user-form");
 var searchDiv = document.querySelector(".search-history");
 var cityNameEl = document.querySelector("#city");
-var currentWeatherEl = document.querySelector("#current-weather");
-var fiveDayEl = document.querySelector("#five-day")
+var currentWeatherDiv = document.querySelector("#current-weather");
+var fiveDayDiv = document.querySelector("#five-day")
 
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
@@ -38,18 +38,60 @@ var searchWeather = function (city){
     fetch(apiUrl).then(function(response){
         if(response.ok) {
             response.json().then(function(data){
-                console.log(data,city);
+                currentWeatherDiv.removeAttribute("class", "hide");
+                 currentWeatherDiv.setAttribute("class", "current");
+    
+                var date = moment().subtract(10, 'days').calendar();
+                var cityDetails = document.createElement("div")
+                // set attributes of div
+                currentWeatherDiv.appendChild(cityDetails);
+
+                var cityDate = document.createElement("h1");
+                cityDate.innerHTML = data.name +" " + date;
+                cityDetails.appendChild(cityDate);
+
+                var cityTemp = document.createElement("p");
+                cityTemp.innerHTML = "Temperature: " + k2f(data.main.temp) + "&#176F";
+                cityDetails.appendChild(cityTemp)
+                
+                var cityWind = document.createElement("p");
+                cityWind.innerHTML = "Wind: " + data.wind.speed+ " MPH";
+                cityDetails.appendChild(cityWind);
+
+                var cityHumidity = document.createElement("p");
+                cityHumidity.innerHTML = "Humidity: " + data.main.humidity + "%";
+                cityDetails.appendChild(cityHumidity);
+                
+                var cityUv = document.createElement("p");
+                cityUv.innerHTML = "UV Index: ";
+                cityDetails.appendChild(cityUv);
+
+
+                console.log(data.name);
+                displayCurrentWeather();
+                displayWeatherForecast();
     
            });
         }
     });
 };
 
-
+// display current weather 
 function displayCurrentWeather() {
-
+    
 };
 
+function displayWeatherForecast(){
+    fiveDayDiv.removeAttribute("class", "hide");
+    fiveDayDiv.setAttribute("class", "row", "justify-content-between");
+
+    
+}
+
+// change kelvin temp to farenheit 
+function k2f(K) {
+    return Math.floor((K - 273.15) * 1.8 + 32);
+}
 
 function displaySearchHistory (){
 
