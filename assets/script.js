@@ -39,7 +39,7 @@ var searchWeather = function (city){
         if(response.ok) {
             response.json().then(function(data){
                 currentWeatherDiv.removeAttribute("class", "hide");
-                 currentWeatherDiv.setAttribute("class", "current");
+                currentWeatherDiv.setAttribute("class", "current");
     
                 var date = moment().subtract(10, 'days').calendar();
                 var cityDetails = document.createElement("div")
@@ -62,31 +62,38 @@ var searchWeather = function (city){
                 cityHumidity.innerHTML = "Humidity: " + data.main.humidity + "%";
                 cityDetails.appendChild(cityHumidity);
                 
+                // need to add in new API to connect UV index
                 var cityUv = document.createElement("p");
                 cityUv.innerHTML = "UV Index: ";
                 cityDetails.appendChild(cityUv);
 
+                // 5 day forecast for weather
 
-                console.log(data.name);
-                displayCurrentWeather();
-                displayWeatherForecast();
+                var cityId = data.id;
+                console.log(data.id);
+                var forecastApi = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&appid=" + apiKey;
+
+                fetch(forecastApi).then(function(response){
+                    if(response.ok){
+                        response.json().then(function(){
+                            fiveDayDiv.removeAttribute("class", "hide");
+                            fiveDayDiv.setAttribute("class", "row", "justify-content-between");
+                        });
+                    }
+                })
+                 // date
+                 //icon
+                 //temp
+                 //wind
+                //humidity
     
            });
+           
         }
     });
-};
-
-// display current weather 
-function displayCurrentWeather() {
     
 };
-
-function displayWeatherForecast(){
-    fiveDayDiv.removeAttribute("class", "hide");
-    fiveDayDiv.setAttribute("class", "row", "justify-content-between");
-
     
-}
 
 // change kelvin temp to farenheit 
 function k2f(K) {
