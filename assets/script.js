@@ -59,6 +59,12 @@ var searchWeather = function (city){
                 cityDate.innerHTML = data.name +" " + date;
                 cityDetails.appendChild(cityDate);
 
+                // add in icon
+                var cityIcon = document.createElement("img");
+                cityIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+                cityIcon.setAttribute("alt", data.weather[0].description);
+                cityDate.appendChild(cityIcon);
+
                 var cityTemp = document.createElement("p");
                 cityTemp.innerHTML = "Temperature: " + k2f(data.main.temp) + "&#176F";
                 cityDetails.appendChild(cityTemp)
@@ -100,6 +106,8 @@ var searchWeather = function (city){
 
                             var dayOneIcon = document.createElement("img");
                             dayOneIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + "@2x.png");
+                            dayOneIcon.setAttribute("alt", data.list[1].weather[0].description);
+                            forecastOne.appendChild(dayOneIcon);
 
                             var dayOneTemp = document.createElement("p");
                             dayOneTemp.innerHTML = "Temp: " + k2f(data.list[1].main.temp) + "&#176F";
@@ -119,6 +127,10 @@ var searchWeather = function (city){
                             forecastTwo.appendChild(dayTwo);
 
                             // add in icon
+                            var dayTwoIcon = document.createElement("img");
+                            dayTwoIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + "@2x.png");
+                            dayTwoIcon.setAttribute("alt", data.list[3].weather[0].description);
+                            forecastTwo.appendChild(dayTwoIcon);
 
                             var dayTwoTemp = document.createElement("p");
                             dayTwoTemp.innerHTML = "Temp: " + k2f(data.list[2].main.temp) + "&#176F";
@@ -137,7 +149,11 @@ var searchWeather = function (city){
                             dayThree.innerHTML = data.list[3].dt_tx;
                             forecastThree.appendChild(dayThree);
 
-                            // add in icon
+                            // add in forecast day three icon
+                            var dayThreeIcon = document.createElement("img");
+                            dayThreeIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[3].weather[0].icon + "@2x.png");
+                            dayThreeIcon.setAttribute("alt", data.list[3].weather[0].description);
+                            forecastThree.appendChild(dayThreeIcon);
 
                             var dayThreeTemp = document.createElement("p");
                             dayThreeTemp.innerHTML = "Temp: " + k2f(data.list[3].main.temp) + "&#176F";
@@ -157,6 +173,10 @@ var searchWeather = function (city){
                             forecastFour.appendChild(dayFour);
 
                             // add in icon
+                            var dayFourIcon = document.createElement("img");
+                            dayFourIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[4].weather[0].icon + "@2x.png");
+                            dayFourIcon.setAttribute("alt", data.list[4].weather[0].description);
+                            forecastFour.appendChild(dayFourIcon);
 
                             var dayFourTemp = document.createElement("p");
                             dayFourTemp.innerHTML = "Temp: " + k2f(data.list[4].main.temp) + "&#176F";
@@ -176,6 +196,10 @@ var searchWeather = function (city){
                             forecastFive.appendChild(dayFive);
 
                             // add in icon
+                            var dayFiveIcon = document.createElement("img");
+                            dayFiveIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[5].weather[0].icon + "@2x.png");
+                            dayFiveIcon.setAttribute("alt", data.list[5].weather[0].description);
+                            forecastFive.appendChild(dayFiveIcon);
 
                             var dayFiveTemp = document.createElement("p");
                             dayFiveTemp.innerHTML = "Temp: " + k2f(data.list[5].main.temp) + "&#176F";
