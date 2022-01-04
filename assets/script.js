@@ -4,6 +4,12 @@ var searchDiv = document.querySelector(".search-history");
 var cityNameEl = document.querySelector("#city");
 var currentWeatherDiv = document.querySelector("#current-weather");
 var fiveDayDiv = document.querySelector("#five-day")
+var forecastEl = document.querySelectorAll(".forecast");
+var forecastOne = document.querySelector(".forecast-one");
+var forecastTwo = document.querySelector(".forecast-two");
+var forecastThree = document.querySelector(".forecast-three");
+var forecastFour = document.querySelector(".forecast-four");
+var forecastFive = document.querySelector(".forecast-five");
 
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
@@ -38,6 +44,9 @@ var searchWeather = function (city){
     fetch(apiUrl).then(function(response){
         if(response.ok) {
             response.json().then(function(data){
+
+                console.log(response);
+
                 currentWeatherDiv.removeAttribute("class", "hide");
                 currentWeatherDiv.setAttribute("class", "current");
     
@@ -62,22 +71,132 @@ var searchWeather = function (city){
                 cityHumidity.innerHTML = "Humidity: " + data.main.humidity + "%";
                 cityDetails.appendChild(cityHumidity);
                 
-                // need to add in new API to connect UV index
+                // need to add in new API to connect UV index //////
                 var cityUv = document.createElement("p");
                 cityUv.innerHTML = "UV Index: ";
                 cityDetails.appendChild(cityUv);
 
                 // 5 day forecast for weather
-
                 var cityId = data.id;
-                console.log(data.id);
                 var forecastApi = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&appid=" + apiKey;
+
+                fiveDayDiv.removeAttribute("class", "hide");
+                fiveDayDiv.setAttribute("class", "row", "justify-content-between");
 
                 fetch(forecastApi).then(function(response){
                     if(response.ok){
-                        response.json().then(function(){
-                            fiveDayDiv.removeAttribute("class", "hide");
-                            fiveDayDiv.setAttribute("class", "row", "justify-content-between");
+                        response.json().then(function(data){
+
+                            console.log(data.list[0].dt_txt);
+                            console.log(data.list[1].dt_txt);
+
+                            //day one forecast
+                            var dayOne = document.createElement("h3");
+                            dayOne.innerHTML = data.list[1].dt_tx; // split this at space 
+                            forecastOne.appendChild(dayOne);
+
+                            // add in icon
+                            var dayOneIcon = document.createElement("img");
+                            dayOneIcon.setAttribute("src", "htt")
+
+                            var dayOneTemp = document.createElement("p");
+                            dayOneTemp.innerHTML = "Temp: " + k2f(data.list[1].main.temp) + "&#176F";
+                            forecastOne.appendChild(dayOneTemp)
+
+                            var dayOneWind = document.createElement("p");
+                            dayOneWind.innerHTML = "Wind: " + data.list[1].wind.speed+ " MPH";
+                            forecastOne.appendChild(dayOneWind);
+
+                            var dayOneHumidity = document.createElement("p");
+                            dayOneHumidity.innerHTML = "Humidity: " + data.list[1].main.humidity + "%";
+                            forecastOne.appendChild(dayOneHumidity);
+
+                            //day two forecast
+                            var dayTwo = document.createElement("h3");
+                            dayTwo.innerHTML = data.list[2].dt_tx;
+                            forecastTwo.appendChild(dayTwo);
+
+                            // add in icon
+
+                            var dayTwoTemp = document.createElement("p");
+                            dayTwoTemp.innerHTML = "Temp: " + k2f(data.list[2].main.temp) + "&#176F";
+                            forecastTwo.appendChild(dayTwoTemp)
+
+                            var dayTwoWind = document.createElement("p");
+                            dayTwoWind.innerHTML = "Wind: " + data.list[2].wind.speed+ " MPH";
+                            forecastTwo.appendChild(dayTwoWind);
+
+                            var dayTwoHumidity = document.createElement("p");
+                            dayTwoHumidity.innerHTML = "Humidity: " + data.list[2].main.humidity + "%";
+                            forecastTwo.appendChild(dayTwoHumidity);
+
+                            // day three forecast
+                            var dayThree = document.createElement("h3");
+                            dayThree.innerHTML = data.list[3].dt_tx;
+                            forecastThree.appendChild(dayThree);
+
+                            // add in icon
+
+                            var dayThreeTemp = document.createElement("p");
+                            dayThreeTemp.innerHTML = "Temp: " + k2f(data.list[3].main.temp) + "&#176F";
+                            forecastThree.appendChild(dayThreeTemp)
+
+                            var dayThreeWind = document.createElement("p");
+                            dayThreeWind.innerHTML = "Wind: " + data.list[3].wind.speed+ " MPH";
+                            forecastThree.appendChild(dayThreeWind);
+
+                            var dayThreeHumidity = document.createElement("p");
+                            dayThreeHumidity.innerHTML = "Humidity: " + data.list[3].main.humidity + "%";
+                            forecastThree.appendChild(dayThreeHumidity);
+
+                            // day four forecast
+                            var dayFour = document.createElement("h3");
+                            dayFour.innerHTML = data.list[4].dt_tx;
+                            forecastFour.appendChild(dayFour);
+
+                            // add in icon
+
+                            var dayFourTemp = document.createElement("p");
+                            dayFourTemp.innerHTML = "Temp: " + k2f(data.list[4].main.temp) + "&#176F";
+                            forecastFour.appendChild(dayFourTemp)
+
+                            var dayFourWind = document.createElement("p");
+                            dayFourWind.innerHTML = "Wind: " + data.list[4].wind.speed+ " MPH";
+                            forecastFour.appendChild(dayFourWind);
+
+                            var dayFourHumidity = document.createElement("p");
+                            dayFourHumidity.innerHTML = "Humidity: " + data.list[4].main.humidity + "%";
+                            forecastFour.appendChild(dayFourHumidity);
+
+                            // day five forecast
+                            var dayFive = document.createElement("h3");
+                            dayFive.innerHTML = data.list[5].dt_tx;
+                            forecastFive.appendChild(dayFive);
+
+                            // add in icon
+
+                            var dayFiveTemp = document.createElement("p");
+                            dayFiveTemp.innerHTML = "Temp: " + k2f(data.list[5].main.temp) + "&#176F";
+                            forecastFive.appendChild(dayFiveTemp)
+
+                            var dayFiveWind = document.createElement("p");
+                            dayFiveWind.innerHTML = "Wind: " + data.list[5].wind.speed+ " MPH";
+                            forecastFive.appendChild(dayFiveWind);
+
+                            var dayFiveHumidity = document.createElement("p");
+                            dayFiveHumidity.innerHTML = "Humidity: " + data.list[5].main.humidity + "%";
+                            forecastFive.appendChild(dayFiveHumidity);
+
+
+                            //for (i = 0; i > forecastEl.length; i++){
+                                //remove current text - not working
+                                //forecastEl[i].innerHTML = "";
+                                //var forecastDateEl = document.createElement("h3");
+                              //  forecastDateEl.innerHTML = data.list[0].dt_txt;
+                               // fiveDayDiv.appendChild(forecastDateEl);
+
+                                
+                           // }
                         });
                     }
                 })
