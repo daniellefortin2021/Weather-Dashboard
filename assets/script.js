@@ -95,9 +95,11 @@ var searchWeather = function (city){
                             dayOne.innerHTML = data.list[1].dt_tx; // split this at space 
                             forecastOne.appendChild(dayOne);
 
-                            // add in icon
+                            // add in icon - 
+                            console.log(data.list[1].weather[0].icon);
+
                             var dayOneIcon = document.createElement("img");
-                            dayOneIcon.setAttribute("src", "htt")
+                            dayOneIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + "@2x.png");
 
                             var dayOneTemp = document.createElement("p");
                             dayOneTemp.innerHTML = "Temp: " + k2f(data.list[1].main.temp) + "&#176F";
