@@ -5,6 +5,7 @@ var cityNameEl = document.querySelector("#city");
 var currentWeatherDiv = document.querySelector("#current-weather");
 var fiveDayDiv = document.querySelector("#five-day")
 var forecastEl = document.querySelectorAll(".forecast");
+
 var forecastOne = document.querySelector(".forecast-one");
 var forecastTwo = document.querySelector(".forecast-two");
 var forecastThree = document.querySelector(".forecast-three");
@@ -12,6 +13,16 @@ var forecastFour = document.querySelector(".forecast-four");
 var forecastFive = document.querySelector(".forecast-five");
 
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+
+// sets current date format
+var today = new Date();
+var date = today.getMonth()+1+'/'+today.getDate()+'/'+today.getFullYear();
+
+var month = today.getMonth()+1;
+var day = today.getDate();
+var year = today.getFullYear();
+
+console.log(month + "/" + day + "/" + year);
 
 // grab city name from search
 var searchHandler = function(event){
@@ -49,11 +60,11 @@ var searchWeather = function (city){
 
                 currentWeatherDiv.removeAttribute("class", "hide");
                 currentWeatherDiv.setAttribute("class", "current");
-    
-                var date = moment().subtract(10, 'days').calendar();
+
                 var cityDetails = document.createElement("div")
                 // set attributes of div
                 currentWeatherDiv.appendChild(cityDetails);
+
 
                 var cityDate = document.createElement("h1");
                 cityDate.innerHTML = data.name +" " + date;
@@ -76,11 +87,6 @@ var searchWeather = function (city){
                 var cityHumidity = document.createElement("p");
                 cityHumidity.innerHTML = "Humidity: " + data.main.humidity + "%";
                 cityDetails.appendChild(cityHumidity);
-                
-                // need to add in new API to connect UV index //////
-                var cityUv = document.createElement("p");
-                cityUv.innerHTML = "UV Index: ";
-                cityDetails.appendChild(cityUv);
 
                 // 5 day forecast for weather
                 var cityId = data.id;
@@ -93,12 +99,15 @@ var searchWeather = function (city){
                     if(response.ok){
                         response.json().then(function(data){
 
-                            console.log(data.list[0].dt_txt);
-                            console.log(data.list[1].dt_txt);
-
                             //day one forecast
+
+                            // day one date
                             var dayOne = document.createElement("h3");
-                            dayOne.innerHTML = data.list[1].dt_tx; // split this at space 
+                            var dayOneDate = new Date(); // get today date
+                            dayOneDate.setDate(dayOneDate.getDate() + 1); // add one days
+                            var finalDayOneDate = ((dayOneDate.getMonth() + 1)) + "/" + dayOneDate.getDate() +"/" + dayOneDate.getFullYear();
+                        
+                            dayOne.innerHTML = finalDayOneDate
                             forecastOne.appendChild(dayOne);
 
                             // add in icon - 
@@ -121,9 +130,15 @@ var searchWeather = function (city){
                             dayOneHumidity.innerHTML = "Humidity: " + data.list[1].main.humidity + "%";
                             forecastOne.appendChild(dayOneHumidity);
 
+                            
                             //day two forecast
                             var dayTwo = document.createElement("h3");
-                            dayTwo.innerHTML = data.list[2].dt_tx;
+                            var dayTwoDate = new Date(); // get today date
+                            dayTwoDate.setDate(dayTwoDate.getDate() + 2); // add one days
+                            var finalDayTwoDate = ((dayTwoDate.getMonth() + 1)) + "/" + dayTwoDate.getDate() +"/" + dayTwoDate.getFullYear();
+                        
+                            dayTwo.innerHTML = finalDayTwoDate
+
                             forecastTwo.appendChild(dayTwo);
 
                             // add in icon
@@ -146,7 +161,12 @@ var searchWeather = function (city){
 
                             // day three forecast
                             var dayThree = document.createElement("h3");
-                            dayThree.innerHTML = data.list[3].dt_tx;
+                            var dayThreeDate = new Date(); // get today date
+                            dayThreeDate.setDate(dayThreeDate.getDate() + 3); // add one days
+                            var finalDayThreeDate = ((dayThreeDate.getMonth() + 1)) + "/" + dayThreeDate.getDate() +"/" + dayThreeDate.getFullYear();
+                        
+                            dayThree.innerHTML = finalDayThreeDate
+                            
                             forecastThree.appendChild(dayThree);
 
                             // add in forecast day three icon
@@ -169,7 +189,13 @@ var searchWeather = function (city){
 
                             // day four forecast
                             var dayFour = document.createElement("h3");
-                            dayFour.innerHTML = data.list[4].dt_tx;
+                            
+                            var dayFourDate = new Date(); // get today date
+                            dayFourDate.setDate(dayFourDate.getDate() + 4); // add one days
+                            var finalDayFourDate = ((dayFourDate.getMonth() + 1)) + "/" + dayFourDate.getDate() +"/" + dayFourDate.getFullYear();
+                        
+                            dayFour.innerHTML = finalDayFourDate
+
                             forecastFour.appendChild(dayFour);
 
                             // add in icon
@@ -192,7 +218,12 @@ var searchWeather = function (city){
 
                             // day five forecast
                             var dayFive = document.createElement("h3");
-                            dayFive.innerHTML = data.list[5].dt_tx;
+                            var dayFiveDate = new Date(); // get today date
+                            dayFiveDate.setDate(dayFiveDate.getDate() + 5); // add one days
+                            var finalDayFiveDate = ((dayFiveDate.getMonth() + 1)) + "/" + dayFiveDate.getDate() +"/" + dayFiveDate.getFullYear();
+                        
+                            dayFive.innerHTML = finalDayFiveDate
+
                             forecastFive.appendChild(dayFive);
 
                             // add in icon
