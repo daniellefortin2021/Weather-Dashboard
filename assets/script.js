@@ -88,6 +88,32 @@ var searchWeather = function (city){
                 cityHumidity.innerHTML = "Humidity: " + data.main.humidity + "%";
                 cityDetails.appendChild(cityHumidity);
 
+                // add UV API
+                var lat = data.coord.lat;
+                var lon = data.coord.lon;
+
+                console.log(lat);
+
+                var uvApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" +lat + "&lon=" + lon + "&appid=" + apiKey;
+
+                fetch(uvApi).then(function(response){
+                    if(response.ok){
+                        response.json().then(function(data){
+                            // add in UV element
+                            var uvEl = document.createElement("span");
+                            //if formula to check value of index and add attribute
+                            if (data.current.uvi < 4) {
+                                uvEl.setAttribute("class", "badge badge-success");
+                            }
+
+                            console.log(data.current.uvi);
+
+                            uvEl.innerHTML = "UV Index: " + data.current.uvi;
+                            cityDetails.appendChild(uvEl);
+                        })
+                    }
+                })
+
                 // 5 day forecast for weather
                 var cityId = data.id;
                 var forecastApi = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityId + "&appid=" + apiKey;
