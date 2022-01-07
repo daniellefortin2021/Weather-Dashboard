@@ -104,9 +104,13 @@ var searchWeather = function (city){
                             //if formula to check value of index and add attribute
                             if (data.current.uvi < 4) {
                                 uvEl.setAttribute("class", "badge badge-success");
-                            }
+                            } else if (data.current.uvi < 8) {
+                                uvEl.setAttribute("class", "badge badge-warning");
+                            } else {
+                                uvEl.setAttribute("class", "badge badge-danger");
+                            };
 
-                            console.log(data.current.uvi);
+                            console.log(response);
 
                             uvEl.innerHTML = "UV Index: " + data.current.uvi;
                             cityDetails.appendChild(uvEl);
