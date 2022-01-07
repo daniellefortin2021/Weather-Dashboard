@@ -9,7 +9,7 @@ This application allows the user to retrieve weather data for cities using the O
 
 # Preview
 
-![Screenshot of the code quiz](./assets/weather-dashboard.png)
+![Screenshot of the code quiz](./assets/weather-dashboard2.png)
 
 # Link
 
